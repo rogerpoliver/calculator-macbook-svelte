@@ -1,52 +1,50 @@
 <script lang="ts">
+  import CalculatorModel from "../model/CalculatorModel";
+
   import Button from "./Button.svelte";
   import Row from "./Row.svelte";
   import Screen from "./Screen.svelte";
 
-  class Model {
-    value: string
-    constructor(value: string = '0') {
-      this.value = value
-    }
-  }
+  let calc = new CalculatorModel();
 
-  let obj = new Model()
-  
- 
-  let value = "";
-  function numberChoosed(number: string) {
-    value += number;
-  }
+  const inputtedValue = (num: string) => (calc = calc.inputtedValue(num));
+  const inputtedDot = () => (calc = calc.inputtedDot());
+  const inputtedOperation = (operation: string) =>
+    (calc = calc.inputtedOperation(operation));
+  const allClear = () => (calc = calc.AllClear());
+  const calculate = () => (calc = calc.calculate());
 </script>
 
 <div class="calculator">
-  <Screen value={value} />
+  <Screen value={calc.value} />
   <Row>
-    <Button text="AC" triple alternative />
-    <Button text="÷" operation />
+    <Button text="AC" triple alternative onClick={allClear} />
+    <Button text="/" operation onClick={inputtedOperation} />
+    <!-- <Button text="÷" operation onClick={inputtedOperation} /> -->
   </Row>
   <Row>
-    <Button text="7" onClick={numberChoosed} />
-    <Button text="8" onClick={numberChoosed}/>
-    <Button text="9" onClick={numberChoosed}/>
-    <Button text="x" operation onClick={numberChoosed}/>
+    <Button text="7" onClick={inputtedValue} />
+    <Button text="8" onClick={inputtedValue} />
+    <Button text="9" onClick={inputtedValue} />
+    <Button text="*" operation onClick={inputtedOperation} />
+    <!-- <Button text="x" operation onClick={inputtedOperation} /> -->
   </Row>
   <Row>
-    <Button text="4" />
-    <Button text="5" />
-    <Button text="6" />
-    <Button text="-" operation />
+    <Button text="4" onClick={inputtedValue} />
+    <Button text="5" onClick={inputtedValue} />
+    <Button text="6" onClick={inputtedValue} />
+    <Button text="-" operation onClick={inputtedOperation} />
   </Row>
   <Row>
-    <Button text="1" />
-    <Button text="2" />
-    <Button text="3" />
-    <Button text="+" operation />
+    <Button text="1" onClick={inputtedValue} />
+    <Button text="2" onClick={inputtedValue} />
+    <Button text="3" onClick={inputtedValue} />
+    <Button text="+" operation onClick={inputtedOperation} />
   </Row>
   <Row>
-    <Button text="0" double zero />
-    <Button text="," />
-    <Button text="=" operation equals />
+    <Button text="0" double zero onClick={inputtedValue} />
+    <Button text="," onClick={inputtedDot} />
+    <Button text="=" operation equals onClick={calculate} />
   </Row>
 </div>
 

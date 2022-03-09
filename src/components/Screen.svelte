@@ -1,6 +1,4 @@
 <script lang="ts">
-  import { validate_store } from "svelte/internal";
-
   export let value: string;
   $: fontSize = value.length > 20 ? "small" : `s-${value.length}`;
 </script>
